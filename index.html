@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>princess-s letter</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+
+      background:
+        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+        url("01.jpg.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.95);
+      padding: 28px 24px;
+      border-radius: 18px;
+      width: 90%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    }
+
+    h1 {
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .btn-area {
+      position: relative;
+      width: 100%;
+      height: 140px;
+    }
+
+    button {
+      position: absolute;
+      width: 120px;
+      height: 46px;
+      border-radius: 30px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .yes {
+      left: 0;
+      background: #ff4d6d;
+      color: #fff;
+    }
+
+    .no {
+      right: 0;
+      background: #ddd;
+      color: #111;
+    }
+
+    .result {
+      display: none;
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #ff4d6d;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: 0;
+      font-size: 22px;
+      animation: float 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-300px); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>야! 깅지운<br>나랑 같이 놀래?</h1>
+
+    <div class="btn-area" id="btnArea">
+      <button class="yes" id="yesBtn">Yes</button>
+      <button class="no" id="noBtn">No</button>
+    </div>
+
+    <div class="result" id="result">
+      고마웡~ ❤️
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const btnArea = document.getElementById("btnArea");
+    const result = document.getElementById("result");
+
+    function moveNo() {
+      const maxX = btnArea.clientWidth - 120;
+      const maxY = btnArea.clientHeight - 46;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    // 📱 모바일 기준: 터치하면 도망
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNo();
+    });
+
+    // 혹시 눌려도 아무 일 없음
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      moveNo();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      document.body.style.background =
+        'linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url("02.jpg.jpeg")';
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundPosition = "center";
+
+      result.style.display = "block";
+      makeHearts();
+    });
+
+    function makeHearts() {
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+  </script>
+
+</body>
+</html>
